@@ -4,4 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-ark-ff = "0.4.2"
+ark-ff = "0.3.0"
+ark-poly = "0.3.0"
+ark-pallas = "0.3.0"
+itertools = "0.10.5"
+ark-bn254 = "0.3.0" 
