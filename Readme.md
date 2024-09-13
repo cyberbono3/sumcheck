@@ -1,4 +1,4 @@
-<align="center">Sumcheck Protocol</h1>
+<h1 align="center">Sumcheck</h1>
 
 The Sumcheck protocol is an interactive proof method widely used in computer science, especially in fields like complexity theory and cryptography, to verify the accuracy of certain computations. It is a key technique in the realm of probabilistic proof systems and is essential for creating efficient zero-knowledge proofs and secure multi-party computation protocols
 
