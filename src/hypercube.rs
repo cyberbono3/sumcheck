@@ -58,8 +58,8 @@ impl<FF: Field> Iterator for HyperCube<FF> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use ark_ff::{Zero, One};
-    use ark_bn254::Fr; // Use Fr from the ark_bn254 crate, which is a predefined finite field.
+    use ark_bn254::Fr;
+    use ark_ff::{One, Zero}; // Use Fr from the ark_bn254 crate, which is a predefined finite field.
 
     #[test]
     fn test_hypercube_initialization() {

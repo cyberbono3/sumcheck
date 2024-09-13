@@ -1,4 +1,4 @@
-use ark_ff::{Zero, Field};
+use ark_ff::{Field, Zero};
 use ark_poly::multivariate::Term;
 use ark_poly::multivariate::{SparsePolynomial, SparseTerm};
 use ark_poly::MVPolynomial;
@@ -7,8 +7,7 @@ pub trait TermEvaluation<FF> {
     fn selected_evaluation(&self, points: &[Option<FF>]) -> (FF, SparseTerm);
 }
 
-impl<FF: Field> TermEvaluation<FF> for SparseTerm
-{
+impl<FF: Field> TermEvaluation<FF> for SparseTerm {
     fn selected_evaluation(&self, points: &[Option<FF>]) -> (FF, SparseTerm) {
         let mut scalar = FF::one();
 
@@ -34,8 +33,7 @@ pub trait MultivariateEvaluation<F> {
     fn selected_evaluation(&self, points: &[Option<F>]) -> Self;
 }
 
-impl<FF: Field> MultivariateEvaluation<FF> for SparsePolynomial<FF, SparseTerm>
-{
+impl<FF: Field> MultivariateEvaluation<FF> for SparsePolynomial<FF, SparseTerm> {
     fn selected_evaluation(&self, points: &[Option<FF>]) -> Self {
         assert!(
             points.len() <= self.num_vars(),
@@ -46,13 +44,15 @@ impl<FF: Field> MultivariateEvaluation<FF> for SparsePolynomial<FF, SparseTerm>
             return self.clone();
         }
 
-        let terms: Vec<(FF, SparseTerm)> = self.terms
-        .iter()
-        .map(|(coeff, term)| {
-            let (new_coeff, new_term) = term.selected_evaluation(points);
-            let new_coeff = *coeff * new_coeff;
-            (new_coeff, new_term)
-        }).collect();
+        let terms: Vec<(FF, SparseTerm)> = self
+            .terms
+            .iter()
+            .map(|(coeff, term)| {
+                let (new_coeff, new_term) = term.selected_evaluation(points);
+                let new_coeff = *coeff * new_coeff;
+                (new_coeff, new_term)
+            })
+            .collect();
 
         SparsePolynomial::from_coefficients_vec(self.num_vars(), terms)
     }
@@ -61,16 +61,20 @@ impl<FF: Field> MultivariateEvaluation<FF> for SparsePolynomial<FF, SparseTerm>
 #[cfg(test)]
 mod tests {
     use super::*;
-    use ark_ff::{Field, Zero, One};
     use ark_bn254::Fr; // Use Fr from the ark_bn254 crate as the field type
+    use ark_ff::{Field, One, Zero};
     use ark_poly::multivariate::{SparseTerm, Term};
-    
+
     #[test]
     fn test_selected_evaluation_full_points() {
         // Example SparseTerm: x_1^2 * x_2^3
         let term = SparseTerm::new(vec![(1, 2), (2, 3)]);
-        let points: Vec<Option<Fr>> = vec![Some(Fr::from(1u64)), Some(Fr::from(2u64)), Some(Fr::from(3u64))];
-        
+        let points: Vec<Option<Fr>> = vec![
+            Some(Fr::from(1u64)),
+            Some(Fr::from(2u64)),
+            Some(Fr::from(3u64)),
+        ];
+
         // Evaluate the term at the given points
         let (result_scalar, result_term) = term.selected_evaluation(&points);
 
@@ -87,7 +91,7 @@ mod tests {
         // Example SparseTerm: x_1^2 * x_2^3
         let term = SparseTerm::new(vec![(1, 2), (2, 3)]);
         let points: Vec<Option<Fr>> = vec![Some(Fr::from(1u64)), None, Some(Fr::from(3u64))];
-        
+
         // Evaluate the term at the given points
         let (result_scalar, result_term) = term.selected_evaluation(&points);
 
@@ -104,7 +108,7 @@ mod tests {
         // Example SparseTerm: x_1^2 * x_2^3
         let term = SparseTerm::new(vec![(1, 2), (2, 3)]);
         let points: Vec<Option<Fr>> = vec![None, None, None];
-        
+
         // Evaluate the term at the given points
         let (result_scalar, result_term) = term.selected_evaluation(&points);
 

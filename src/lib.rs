@@ -1,6 +1,6 @@
 pub mod hypercube;
 pub mod poly;
-
+pub mod sumcheck;
 
 pub fn add(left: u64, right: u64) -> u64 {
     left + right
