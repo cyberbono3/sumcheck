@@ -2,26 +2,27 @@
 
 `sumcheck` is a Rust library that implements the sumcheck for n-variate polynomials. 
 
-The Sumcheck protocol is an interactive proof method that sums up all evaluatations of n-variate polynomial over boolen hypercube.
+The Sumcheck protocol is an interactive proof method that sums up all evaluations of n-variate polynomial `g` over boolean hypercube `{0,1}^n`
 
 ## Protocol brief overview
-Let g be n-variate polynomial over finite filed F. Let g have degree 3.
+Let `g` be n-variate polynomial over finite field `F`. Let `g` have degree 3.
 
-Compute sum of g(x) over input x = {0,1}^n (hyper cube or bit vector)
+Compute sum of `g(x)` over input `x = {0,1}^n`
 
 Task: offload hard work of computing a sum to prover P.
 
 This is public coin procool, so we can apply Fiat-Shamir to make it non-interactive.
 
-Procotol has of n rounds ( number of variables in polynomial g).
+Procotol has of `n` rounds ( number of variables in polynomial `g`).
 
-Verifier V time O(n) field ops
+Verifier `V` time O(n) field ops
 
 ## Protocol steps
-1. P sends claimed answer C, he sends univariate polynomial) S1(x) claimed to be equal h(x)  = sum of g(x) over input (x1...xn)
-2. V picks random r from finite field F and sends it to P
-3. V checks if S(r) = h(r) holds. Completeness: if prover P honest, this check will pass.
-4. Repeat this process n rounds. Soundness error <= n/|F|. As long as field F is big enouph, we keep this probability negligible.
+1. `P` sends claimed answer C,  `S1(x)` claimed to be equal `h(x)  = sum of g(x) over input (x1...xn)`
+2. V picks random `r` from finite field `F` and sends it to P
+3. V checks if `S(r) = h(r)` holds. Completeness: if prover P honest, this check will pass.
+4. Repeat this process `n` rounds.
+    Soundness error <= n/|F|. As long as field F is big enouph, we keep this probability negligible.
 
 **WARNING**: This is an academic proof-of-concept prototype, and in particular has not received careful code review. This implementation is NOT ready for production use.
 
