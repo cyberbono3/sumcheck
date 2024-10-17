@@ -2,7 +2,7 @@
 
 `sumcheck` is a Rust library that implements the sumcheck for n-variate polynomials. 
 
-The Sumcheck protocol is an interactive proof method widely used in cryptography.
+The Sumcheck protocol is an interactive proof method that sums up all evaluatations of n-variate polynomial over boolen hypercube.
 
 ## Protocol brief overview
 Let g be n-variate polynomial over finite filed F. Let g have degree 3.
