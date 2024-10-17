@@ -11,7 +11,7 @@ Compute sum of g(x) over input x = {0,1}^n (hyper cube or bit vector)
 
 Task: offload hard work of computing a sum to prover P.
 
-This is publoc coin procool, so we can apply Fiat-Shamir to make it non-interactive.
+This is public coin procool, so we can apply Fiat-Shamir to make it non-interactive.
 
 Procotol has of n rounds ( number of variables in polynomial g).
 
